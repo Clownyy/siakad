@@ -113,7 +113,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-file"></i>
+                                <i class="ni ni-single-copy-04"></i>
                                 <span class="nav-link-text">Blog</span>
                             </a>
                         </li>
@@ -125,19 +125,19 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="ni ni-archive-2"></i>
+                                <i class="ni ni-tag"></i>
                                 <span class="nav-link-text">Field Section</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa fa-file"></i>
+                                <i class="ni ni-trophy"></i>
                                 <span class="nav-link-text">Achievment</span>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="ni ni-archive-2"></i>
+                                <i class="ni ni-image"></i>
                                 <span class="nav-link-text">Gallery</span>
                             </a>
                         </li>
@@ -162,7 +162,7 @@
                     <ul class="navbar-nav mb-md-3">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="ni ni-spaceship"></i>
+                                <i class="ni ni-shop"></i>
                                 <span class="nav-link-text">Inventory Data</span>
                             </a>
                         </li>
