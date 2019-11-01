@@ -36,6 +36,12 @@ class AddRelationTable extends Migration
             $table->foreign('sekbid_id')->references('id')->on('sekbids')
                 ->onUpdate('cascade')->onDelete('cascade');
         });
+
+        Schema::table('users', function (Blueprint $table) {
+            $table->BigInteger('role_id')->unsigned()->change();
+            $table->foreign('role_id')->references('id')->on('roles')
+                ->onUpdate('cascade')->onDelete('cascade');
+        });
     }
 
     /**
