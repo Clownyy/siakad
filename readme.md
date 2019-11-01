@@ -8,9 +8,9 @@ Siakad is a web application based on Laravel framework, Siakad contains an acade
 ## Contributing
 
 Thank you for :
-- [Muhammad Jumialdi](https://www.facebook.com/jumialdi60)
-- [Nuzul Alief Haq](https://www.facebook.com/NuzulConsTantiNe)
-- [Muhammad Bafaqih](https://www.facebook.com/bafaqih23)
+- [Muhammad Jumialdi](https://www.github.com/Aldi04)
+- [Nuzul Alief Haq](https://www.github.com/Nuzul07)
+- [Muhammad Bafaqih](https://www.github.com/Clownyy)
 
 ## License
 
