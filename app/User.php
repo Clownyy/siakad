@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'role_id', 'password',
     ];
 
     /**
@@ -36,4 +36,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isSuperAdmin()
+    {
+        if ($this->role_id == 1) return true;
+        return false;
+    }
+
+    public function isAdmin()
+    {
+        if ($this->role_id == 2) return true;
+        return false;
+    }
 }
