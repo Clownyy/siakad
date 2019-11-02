@@ -39,43 +39,17 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'nisn' => 'required|integer|max:10|unique:siswas',
-            'nis' => 'required|integer|max:5|unique:siswas',
-            'nama' => 'required|string|max:100',
-            'jenis_kelamin' => 'required|string',
-            'kelas' => 'required|string',
-            'tempat_lahir' => 'required|string',
-            'tanggal_lahir' => 'required|date',
-            'jurusan_id' => 'required|exists:jurusans,id',
-            'foto' => 'nullable|image'
-        ]);
-
-        try {
-
-            $foto = null;
-    		//jika terdapat file (Foto/Gambar) yang dikirim
-    		if ($request->hasFile('foto')) {
-    			//maka menjalankan method saveFile()
-    			$foto = $this->saveFile($request->nama, $request->file('foto'));
-            }
-            
-            $siswa = Siswa::create([
-                'nisn' => $request->input('nisn'),
-                'nis' => $request->input('nis'),
-                'nama' => $request->input('nama'),
-                'jenis_kelamin' => $request->input('jenis_kelamin'),
-                'kelas' => $request->input('kelas'),
-                'jurusan_id' => $request->input('jurusan_id'),
-                'tempat_lahir' => $request->input('tempat_lahir'),
-                'tanggal_lahir' => $request->input('tanggal_lahir'),
-                'jurusan_id' => $request->input('jurusan_id'),
-                'foto' => $foto
-            ]);
-            return redirect(url('/siswa'));
-        } catch (\Exception $e) {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
+        $table = new Siswa;
+        $table->nisn = $request->input('nisn');
+        $table->nis = $request->input('nis');
+        $table->nama = $request->input('nama');
+        $table->jenis_kelamin = $request->input('jenis_kelamin');
+        $table->kelas = $request->input('kelas');
+        $table->jurusan_id = $request->input('jurusan_id');
+        $table->tempat_lahir = $request->input('tempat_lahir');
+        $table->tanggal_lahir = $request->input('tanggal_lahir');
+        $table->save();
+        return redirect(url('siswa'));
     }
 
     /**

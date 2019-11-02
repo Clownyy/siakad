@@ -61,7 +61,7 @@ Siswa
 										</div>
 										<div class="form-group">
 											<label class="form-control-label" for="exampleFormControlSelect1" name="jurusan_id">Jurusan</label>
-											<select class="form-control" id="exampleFormControlSelect1">
+											<select class="form-control" id="exampleFormControlSelect1" name="jurusan_id">
 												@foreach($jurusans as $j)
 												<option value="{{$j->id}}">{{$j->nama}}</option>
 												@endforeach
@@ -69,7 +69,7 @@ Siswa
 										</div>
 										<div class="form-group">
 											<label class="form-control-label" name="kelas" for="exampleFormControlSelect1">Kelas</label>
-											<select class="form-control" id="exampleFormControlSelect1">
+											<select class="form-control" id="exampleFormControlSelect1" name="kelas">
 												<option>X</option>
 												<option>XI</option>
 												<option>XII</option>
