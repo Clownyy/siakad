@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Siswa;
 use App\Jurusan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Hash;
+use Validator;
 
 class SiswaController extends Controller
 {
@@ -39,16 +42,42 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $table = new Siswa;
-        $table->nisn = $request->input('nisn');
-        $table->nis = $request->input('nis');
-        $table->nama = $request->input('nama');
-        $table->jenis_kelamin = $request->input('jenis_kelamin');
-        $table->kelas = $request->input('kelas');
-        $table->jurusan_id = $request->input('jurusan_id');
-        $table->tempat_lahir = $request->input('tempat_lahir');
-        $table->tanggal_lahir = $request->input('tanggal_lahir');
-        $table->save();
+        $validator = Validator::make(request()->all(),[
+            'nisn' => 'required|max:10',
+            'nis' => 'required|max:5',
+            'nama' => 'required|string',
+            'jenis_kelamin' => 'required|string',
+            'kelas' => 'required|string',
+            'jurusan_id' => 'required|exists:jurusans,id',
+            'tempat_lahir' => 'required|string',
+            'tanggal_lahir' => 'required|date',
+            'foto' => 'nullable|image'
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $siswa = new Siswa;
+        $siswa->nisn = $request->input('nisn');
+        $siswa->nis = $request->input('nis');
+        $siswa->nama = $request->input('nama');
+        $siswa->jenis_kelamin = $request->input('jenis_kelamin');
+        $siswa->kelas = $request->input('kelas');
+        $siswa->jurusan_id = $request->input('jurusan_id');
+        $siswa->tempat_lahir = $request->input('tempat_lahir');
+        $siswa->tanggal_lahir = $request->input('tanggal_lahir');
+        if(Input::hasFile('foto')){
+            $foto = date("Ymd")
+            .uniqid()
+            ."."
+            .Input::file('foto')->getClientOriginalName();
+            Input::file('foto')->move(storage_path('images'),$foto);
+            $siswa->foto = $foto;
+        }
+        $siswa->save();
         return redirect(url('siswa'));
     }
 
@@ -71,8 +100,8 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = Siswa::findOrFail($id);
-        return view('superadmin.siswa.edit', compact('siswa'));
+        $edtsiswa = Siswa::findOrFail($id);
+        return view('superadmin.siswa.edit', compact('edtsiswa'));
     }
 
     /**
@@ -84,43 +113,43 @@ class SiswaController extends Controller
      */
     public function update(Request $request)
     {
-        $this->validate($request, [
-            'nisn' => 'required|integer|max:10|unique:siswas',
-            'nis' => 'required|integer|max:5|unique:siswas',
-            'nama' => 'required|string|max:100',
+        $validator = Validator::make(request()->all(),[
+            'nisn' => 'required|max:10',
+            'nis' => 'required|max:5',
+            'nama' => 'required|string',
             'jenis_kelamin' => 'required|string',
             'kelas' => 'required|string',
+            'jurusan_id' => 'required|exists:jurusans,id',
             'tempat_lahir' => 'required|string',
             'tanggal_lahir' => 'required|date',
-            'jurusan_id' => 'required|exists:jurusans,id',
             'foto' => 'nullable|image'
         ]);
 
-        try {
-
-            $siswa = Siswa::findOrFail($request->input('id'));
-            $foto = $siswa->foto;
-
-            if ($request->has('foto')) {
-                !empty($foto) ? File::delete(storage_path('images' . $foto)):null;
-    			$photo = $this->saveFile($request->nama, $request->file('foto'));
-            }
-
-            $siswa->nisn = $request->input('nisn');
-            $siswa->nis = $request->input('nis');
-            $siswa->nama = $request->input('nama');
-            $siswa->jenis_kelamin = $request->input('jenis_kelamin');
-            $siswa->kelas = $request->input('kelas');
-            $siswa->tempat_lahir = $request->input('tempat_lahir');
-            $siswa->tanggal_lahir = $request->input('tanggal_lahir');
-            $siswa->jurusan_id = $request->input('jurusan_id');
-            $siswa->foto = $foto;
-            $siswa->save();
-            return redirect(url('/siswa'));
-
-        } catch (\Throwable $th) {
-            return redirect()->back()->with(['error' => $e->getMessage()]);
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
         }
+
+        $siswa = Siswa::findOrFail($request->input('id'));
+        $siswa->nisn = $request->input('nisn');
+        $siswa->nis = $request->input('nis');
+        $siswa->nama = $request->input('nama');
+        $siswa->jenis_kelamin = $request->input('jenis_kelamin');
+        $siswa->kelas = $request->input('kelas');
+        $siswa->jurusan_id = $request->input('jurusan_id');
+        $siswa->tempat_lahir = $request->input('tempat_lahir');
+        $siswa->tanggal_lahir = $request->input('tanggal_lahir');
+        if(Input::hasFile('foto')){
+            $foto = date("Ymd")
+            .uniqid()
+            ."."
+            .Input::file('foto')->getClientOriginalName();
+            Input::file('foto')->move(storage_path('images'),$foto);
+            $siswa->foto = $foto;
+        }
+        $siswa->save();
+        return redirect(url('siswa'));
     }
 
     /**
