@@ -81,6 +81,15 @@ Route::group(['prefix' => '/'], function () {
         Route::put('kategori/{id}/', 'KategoriController@update');
         Route::get('kategori/delete/{id}', 'KategoriController@destroy');
     });
+    Route::group(['middleware' => 'superadmin'], function () {
+        //Start route Gudang
+        Route::get('gudang', 'GudangController@index');
+        Route::get('gudang/create', 'GudangController@create');
+        Route::post('gudang/store', 'GudangController@store');
+        Route::get('gudang/edit/{id}', 'GudangController@edit');
+        Route::put('gudang/{id}/', 'GudangController@update');
+        Route::get('gudang/delete/{id}', 'GudangController@destroy');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

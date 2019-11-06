@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Gudang;
+use App\Kategori;
 use Illuminate\Http\Request;
+use Validator;
+
 
 class GudangController extends Controller
 {
@@ -14,7 +17,9 @@ class GudangController extends Controller
      */
     public function index()
     {
-        //
+        $gudang = Gudang::with('kategoris')->orderBy('created_at', 'DESC')->get();
+        $kategori = Kategori::orderBy('nama', 'ASC')->get();
+        return view('superadmin.gudang.index', compact('gudang', 'kategori'));
     }
 
     /**
@@ -24,7 +29,8 @@ class GudangController extends Controller
      */
     public function create()
     {
-        //
+        $kategori = Kategori::orderBy('nama', 'ASC')->get();
+        return view('superadmin.gudang.create', compact('kategori'));
     }
 
     /**
@@ -35,7 +41,25 @@ class GudangController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'nama_barang' => 'required|string',
+            'jumlah_barang' => 'required|integer',
+            'kategori_id' => 'required|exists:kategoris,id',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $gudang = new Gudang;
+        $gudang->nama_barang = $request->input('nama_barang');
+        $gudang->jumlah_barang = $request->input('jumlah_barang');
+        $gudang->kategori_id = $request->input('kategori_id');
+
+        $gudang->save();
+        return redirect(url('gudang'));
     }
 
     /**
@@ -55,9 +79,11 @@ class GudangController extends Controller
      * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function edit(Gudang $gudang)
+    public function edit($id)
     {
-        //
+        $kategori = Kategori::orderBy('nama', 'ASC')->get();
+        $gudang = Gudang::findOrFail($id);
+        return view('superadmin.gudang.edit', compact('gudang', 'kategori'));
     }
 
     /**
@@ -67,9 +93,27 @@ class GudangController extends Controller
      * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Gudang $gudang)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'nama_barang' => 'required|string',
+            'jumlah_barang' => 'required|string',
+            'kategori_id' => 'required|exists:kategoris,id',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $gudang = Gudang::findOrFail($id);
+        $gudang->nama_barang = $request->input('nama_barang');
+        $gudang->jumlah_barang = $request->input('jumlah_barang');
+        $gudang->kategori_id = $request->input('kategori_id');
+
+        $gudang->save();
+        return redirect(url('gudang'));
     }
 
     /**
@@ -78,8 +122,11 @@ class GudangController extends Controller
      * @param  \App\Gudang  $gudang
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gudang $gudang)
+    public function destroy($id)
     {
-        //
+        $gudang = Gudang::findOrFail($id);
+        $gudang->delete();
+
+        return redirect(url('/gudang'));
     }
 }
