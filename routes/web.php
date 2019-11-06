@@ -10,8 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/images/{filename}', function ($filename)
-{
+Route::get('/images/{filename}', function ($filename) {
     $path = storage_path('images') . '/' . $filename;
     $file = File::get($path);
     $type = File::mimeType($path);
@@ -27,8 +26,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::group(['prefix' => '/'] , function(){
-    Route::group(['middleware' => 'superadmin'], function(){
+Route::group(['prefix' => '/'], function () {
+    Route::group(['middleware' => 'superadmin'], function () {
         //Start route siswa
         Route::get('siswa', 'SiswaController@index');
         Route::get('siswa/create', 'SiswaController@create');
@@ -37,7 +36,7 @@ Route::group(['prefix' => '/'] , function(){
         Route::post('siswa/update', 'SiswaController@update');
         Route::get('siswa/delete/{id}', 'SiswaController@destroy');
     });
-    Route::group(['middleware' => 'superadmin'], function(){
+    Route::group(['middleware' => 'superadmin'], function () {
         //Start route Blog
         Route::get('blog', 'BlogController@index');
         Route::get('blog/create', 'BlogController@create');
@@ -45,6 +44,15 @@ Route::group(['prefix' => '/'] , function(){
         Route::get('blog/edit/{id}', 'BlogController@edit');
         Route::post('blog/update', 'BlogController@update');
         Route::get('blog/delete/{id}', 'BlogController@destroy');
+    });
+    Route::group(['middleware' => 'superadmin'], function () {
+        //Start route karyawan
+        Route::get('karyawan', 'KaryawanController@index');
+        Route::get('karyawan/create', 'KaryawanController@create');
+        Route::post('karyawan/store', 'KaryawanController@store');
+        Route::get('karyawan/edit/{id}', 'KaryawanController@edit');
+        Route::put('karyawan/{id}/', 'KaryawanController@update');
+        Route::get('karyawan/delete/{id}', 'KaryawanController@destroy');
     });
 });
 
