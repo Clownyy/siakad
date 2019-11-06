@@ -99,10 +99,10 @@
                                         <a href="#" class="nav-link">Teachers</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Students</a>
+                                        <a href="{{url('siswa')}}" class="nav-link">Students</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Employees</a>
+                                        <a href="{{url('karyawan')}}" class="nav-link">Employees</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">Subjects</a>
@@ -117,7 +117,7 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url('blog')}}">
                                 <i class="ni ni-single-copy-04"></i>
                                 <span class="nav-link-text">Blog</span>
                             </a>
@@ -147,13 +147,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url('visimisi')}}">
                                 <i class="ni ni-archive-2"></i>
                                 <span class="nav-link-text">Vision and mission</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url('about')}}">
                                 <i class="ni ni-archive-2"></i>
                                 <span class="nav-link-text">About</span>
                             </a>
@@ -172,7 +172,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url('kategori')}}">
                                 <i class="ni ni-palette"></i>
                                 <span class="nav-link-text">Category</span>
                             </a>
