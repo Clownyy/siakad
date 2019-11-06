@@ -54,6 +54,15 @@ Route::group(['prefix' => '/'], function () {
         Route::put('karyawan/{id}/', 'KaryawanController@update');
         Route::get('karyawan/delete/{id}', 'KaryawanController@destroy');
     });
+    Route::group(['middleware' => 'superadmin'], function () {
+        //Start route About
+        Route::get('about', 'AboutController@index');
+        Route::get('about/create', 'AboutController@create');
+        Route::post('about/store', 'AboutController@store');
+        Route::get('about/edit/{id}', 'AboutController@edit');
+        Route::put('about/{id}/', 'AboutController@update');
+        Route::get('about/delete/{id}', 'AboutController@destroy');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

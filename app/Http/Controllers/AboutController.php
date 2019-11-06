@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\About;
 use Illuminate\Http\Request;
+use Validator;
+
 
 class AboutController extends Controller
 {
@@ -14,7 +16,8 @@ class AboutController extends Controller
      */
     public function index()
     {
-        //
+        $about = About::all();
+        return view('superadmin.about.index', compact('about'));
     }
 
     /**
@@ -24,7 +27,7 @@ class AboutController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.about.create');
     }
 
     /**
@@ -35,7 +38,27 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'alamat' => 'required|string',
+            'email' => 'required|string',
+            'notelp' => 'required|string',
+            'fax' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $about = new About();
+        $about->alamat = $request->input('alamat');
+        $about->email = $request->input('email');
+        $about->notelp = $request->input('notelp');
+        $about->fax = $request->input('fax');
+
+        $about->save();
+        return redirect(url('about'));
     }
 
     /**
@@ -55,9 +78,10 @@ class AboutController extends Controller
      * @param  \App\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function edit(About $about)
+    public function edit($id)
     {
-        //
+        $about = About::findOrFail($id);
+        return view('superadmin.about.edit', compact('about'));
     }
 
     /**
@@ -67,9 +91,29 @@ class AboutController extends Controller
      * @param  \App\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, About $about)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'alamat' => 'required|string',
+            'email' => 'required|string',
+            'notelp' => 'required|string',
+            'fax' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $about = About::findOrFail($id);
+        $about->alamat = $request->input('alamat');
+        $about->email = $request->input('email');
+        $about->notelp = $request->input('notelp');
+        $about->fax = $request->input('fax');
+
+        $about->save();
+        return redirect(url('about'));
     }
 
     /**
@@ -78,8 +122,11 @@ class AboutController extends Controller
      * @param  \App\About  $about
      * @return \Illuminate\Http\Response
      */
-    public function destroy(About $about)
+    public function destroy($id)
     {
-        //
+        $about = About::findOrFail($id);
+        $about->delete();
+
+        return redirect(url('/about'));
     }
 }
