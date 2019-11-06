@@ -7,6 +7,7 @@ use App\Jurusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Hash;
+use Illuminate\Support\Facades\File;
 use Validator;
 
 class SiswaController extends Controller
@@ -161,24 +162,11 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findOrFail($id);
-        if (!@empty($siswa->foto)) {
-            File::delete(storage_path('images' . $siswa->foto));
-        }
-
         $siswa->delete();
+        $file = $siswa->foto;
+        $destinationPath = storage_path('images');
+        $filename = $destinationPath.'/'.$file;
+        File::delete($filename);
         return redirect(url('/siswa'));
-    }
-
-    public function saveFile($nama, $foto)
-    {
-        $images = str_slug($nama) . time() . '.' .$foto->getClientOriginalName();
-
-        $path = storage_path('images');
-        if (!File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true, true);
-        }
-
-        Image::make($foto)->save($path . '/' . $images);
-        return $images;
     }
 }
