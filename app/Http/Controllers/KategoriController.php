@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Kategori;
 use Illuminate\Http\Request;
+use Validator;
 
 class KategoriController extends Controller
 {
@@ -14,7 +15,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        $kategori = Kategori::all();
+        return view('superadmin.kategori.index', compact('kategori'));
     }
 
     /**
@@ -24,7 +26,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.kategori.create');
     }
 
     /**
@@ -35,7 +37,21 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'nama' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $kategori = new Kategori();
+        $kategori->nama = $request->input('nama');
+
+        $kategori->save();
+        return redirect(url('kategori'));
     }
 
     /**
@@ -55,9 +71,10 @@ class KategoriController extends Controller
      * @param  \App\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function edit(Kategori $kategori)
+    public function edit($id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        return view('superadmin.kategori.edit', compact('kategori'));
     }
 
     /**
@@ -67,9 +84,23 @@ class KategoriController extends Controller
      * @param  \App\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Kategori $kategori)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'nama' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $kategori = Kategori::findOrFail($id);
+        $kategori->nama = $request->input('nama');
+
+        $kategori->save();
+        return redirect(url('kategori'));
     }
 
     /**
@@ -78,8 +109,11 @@ class KategoriController extends Controller
      * @param  \App\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy($id)
     {
-        //
+        $kategori = Kategori::findOrFail($id);
+        $kategori->delete();
+
+        return redirect(url('/kategori'));
     }
 }
