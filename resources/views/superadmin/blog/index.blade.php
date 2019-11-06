@@ -55,7 +55,10 @@ Blog
                                     <td>{{$b->tanggal}}</td>
                                     <td>{{$b->author}}</td>
                                     <td><img src="{{url('images/'.$b->foto)}}" style="width: 70px; height: 40px"></td>
-                                    <td><a href="{{url('blog/edit/'.$b->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt text-white"></i></a></td>
+                                    <td>
+                                        <a href="{{url('blog/edit/'.$b->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt text-white"></i></a>
+                                        <a href="{{url('blog/delete/'.$b->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></a>
+                                    </td>
                                 </tr>
                                 @endforeach
                             </tbody>

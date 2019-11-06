@@ -32,8 +32,8 @@ Blog
                     <h3 class="mb-0">New Articles</h3>
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{url('blog/update')}}" enctype="multipart/form-data">
-                        @csrf
+                    <form method="post" action="{{url('blog/'.$blogs->id)}}" enctype="multipart/form-data">
+                        @csrf @method('put')
                         <div class="form-group">
                             <label class="form-control-label" for="judul">Title Articles</label>
                             <input type="text" class="form-control" id="judul" name="judul" value="{{$blogs->judul}}">

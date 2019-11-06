@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Hash;
 use Validator;
 
@@ -103,9 +103,39 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Blog $blog)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(),[
+            'judul' => 'required|max:50',
+            'isi' => 'required',
+            'kategori' => 'required|string',
+            'tanggal' => 'required',
+            'author' => 'required|string',
+            'foto' => 'nullable|image'
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $blog = Blog::findorFail($id);
+        $blog->judul = $request->input('judul');
+        $blog->isi = $request->input('isi');
+        $blog->kategori = $request->input('kategori');
+        $blog->tanggal = $request->input('tanggal');
+        $blog->author = $request->input('author');
+        if(Input::hasFile('foto')){
+            $foto = date("Ymd")
+            .uniqid()
+            ."."
+            .Input::file('foto')->getClientOriginalName();
+            Input::file('foto')->move(storage_path('images'),$foto);
+            $blog->foto = $foto;
+        }
+        $blog->save();
+        return redirect(url('blog'));
     }
 
     /**
@@ -114,8 +144,14 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Blog $blog)
+    public function destroy($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
+        $file = $blog->foto;
+        $destinationPath = storage_path('images');
+        $filename = $destinationPath . '/' . $file;
+        File::delete($filename);
+        return redirect(url('blog'));
     }
 }
