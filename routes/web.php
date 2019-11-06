@@ -63,6 +63,15 @@ Route::group(['prefix' => '/'], function () {
         Route::put('about/{id}/', 'AboutController@update');
         Route::get('about/delete/{id}', 'AboutController@destroy');
     });
+    Route::group(['middleware' => 'superadmin'], function () {
+        //Start route About
+        Route::get('visimisi', 'VisimisiController@index');
+        Route::get('visimisi/create', 'VisimisiController@create');
+        Route::post('visimisi/store', 'VisimisiController@store');
+        Route::get('visimisi/edit/{id}', 'VisimisiController@edit');
+        Route::put('visimisi/{id}/', 'VisimisiController@update');
+        Route::get('visimisi/delete/{id}', 'VisimisiController@destroy');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

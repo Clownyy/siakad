@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Visimisi;
 use Illuminate\Http\Request;
+use Validator;
 
 class VisimisiController extends Controller
 {
@@ -14,7 +15,8 @@ class VisimisiController extends Controller
      */
     public function index()
     {
-        //
+        $visimisi = Visimisi::all();
+        return view('superadmin.visimisi.index', compact('visimisi'));
     }
 
     /**
@@ -24,7 +26,7 @@ class VisimisiController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.visimisi.create');
     }
 
     /**
@@ -35,7 +37,23 @@ class VisimisiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'isi' => 'required',
+            'tipe' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $visimisi = new Visimisi();
+        $visimisi->isi = $request->input('isi');
+        $visimisi->tipe = $request->input('tipe');
+
+        $visimisi->save();
+        return redirect(url('visimisi'));
     }
 
     /**
@@ -55,9 +73,10 @@ class VisimisiController extends Controller
      * @param  \App\Visimisi  $visimisi
      * @return \Illuminate\Http\Response
      */
-    public function edit(Visimisi $visimisi)
+    public function edit($id)
     {
-        //
+        $visimisi = Visimisi::findOrFail($id);
+        return view('superadmin.visimisi.edit', compact('visimisi'));
     }
 
     /**
@@ -67,9 +86,25 @@ class VisimisiController extends Controller
      * @param  \App\Visimisi  $visimisi
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Visimisi $visimisi)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'isi' => 'required',
+            'Tipe' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $visimisi = Visimisi::findOrFail($id);
+        $visimisi->isi = $request->input('isi');
+        $visimisi->tipe = $request->input('tipe');
+
+        $visimisi->save();
+        return redirect(url('visimisi'));
     }
 
     /**
@@ -78,8 +113,11 @@ class VisimisiController extends Controller
      * @param  \App\Visimisi  $visimisi
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Visimisi $visimisi)
+    public function destroy($id)
     {
-        //
+        $visimisi = Visimisi::findOrFail($id);
+        $visimisi->delete();
+
+        return redirect(url('/visimisi'));
     }
 }
