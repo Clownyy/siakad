@@ -22,7 +22,14 @@ class CreateUsersTable extends Migration
             $table->string('role_id');
             $table->rememberToken();
             $table->timestamps();
+
         });
+        DB::table('users')->insert([
+            'name' => "Super Admin",
+            'email' => "superadmin@gmail.com",
+            'password' => Hash::make("superadmin"),
+            'role_id' => 1
+        ]);
     }
 
     /**

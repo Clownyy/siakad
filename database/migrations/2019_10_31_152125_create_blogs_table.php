@@ -20,6 +20,7 @@ class CreateBlogsTable extends Migration
             $table->string('kategori');
             $table->string('tanggal');
             $table->string('author');
+            $table->string('foto');
             $table->timestamps();
         });
     }

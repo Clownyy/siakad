@@ -48,6 +48,7 @@
     <!-- Argon CSS -->
     <link rel="stylesheet" href="{{ asset('/assets/css/argon.mine209.css?v=1.0.0')}}" type="text/css">
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    {{-- <link href="{{asset('/summernote/summernote.css')}}" rel="stylesheet"> --}}
 </head>
 
 <body>
@@ -443,6 +444,11 @@
     <script src="{{ asset('/assets/js/argon.mine209.js?v=1.0.0')}}"></script>
     <!-- Demo JS - remove this in your project -->
     <script src="{{ asset('/assets/js/demo.min.js')}}"></script>
+    {{-- <script src="{{asset('/summernote/summernote.js')}}"></script> --}}
+    <script src="{{asset('/js/ckeditor.js')}}"></script>
+    <script>
+        ClassicEditor.create(document.querySelector('#siakadcontent')).catch(error=>{console.error(error)});
+    </script>
 </body>
 
 </html>

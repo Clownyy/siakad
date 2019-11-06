@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Hash;
+use Validator;
 
 class BlogController extends Controller
 {
@@ -14,7 +18,8 @@ class BlogController extends Controller
      */
     public function index()
     {
-        //
+        $blogs = Blog::orderBy('created_at', 'DESC')->get();
+        return view('superadmin.blog.index', compact('blogs'));
     }
 
     /**
@@ -24,7 +29,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        //
+        return view('superadmin.blog.create');
     }
 
     /**
@@ -35,7 +40,37 @@ class BlogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(),[
+            'judul' => 'required|max:50',
+            'isi' => 'required',
+            'kategori' => 'required|string',
+            'tanggal' => 'required',
+            'author' => 'required|string',
+            'foto' => 'nullable|image'
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $blog = new Blog;
+        $blog->judul = $request->input('judul');
+        $blog->isi = $request->input('isi');
+        $blog->kategori = $request->input('kategori');
+        $blog->tanggal = $request->input('tanggal');
+        $blog->author = $request->input('author');
+        if(Input::hasFile('foto')){
+            $foto = date("Ymd")
+            .uniqid()
+            ."."
+            .Input::file('foto')->getClientOriginalName();
+            Input::file('foto')->move(storage_path('images'),$foto);
+            $blog->foto = $foto;
+        }
+        $blog->save();
+        return redirect(url('blog'));
     }
 
     /**
@@ -55,9 +90,10 @@ class BlogController extends Controller
      * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Blog $blog)
+    public function edit($id)
     {
-        //
+        $blogs = Blog::find($id);
+        return view('superadmin.blog.edit',['blogs' => $blogs]);
     }
 
     /**
