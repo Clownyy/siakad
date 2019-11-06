@@ -43,7 +43,7 @@ Karyawan
                                     <th>Date of Birth</th>
                                     <th>position</th>
                                     <th>Image</th>
-                                    <th colspan="2">Action</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>

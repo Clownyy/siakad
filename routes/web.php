@@ -42,7 +42,7 @@ Route::group(['prefix' => '/'], function () {
         Route::get('blog/create', 'BlogController@create');
         Route::post('blog/store', 'BlogController@store');
         Route::get('blog/edit/{id}', 'BlogController@edit');
-        Route::post('blog/update', 'BlogController@update');
+        Route::put('blog/{id}', 'BlogController@update');
         Route::get('blog/delete/{id}', 'BlogController@destroy');
     });
     Route::group(['middleware' => 'superadmin'], function () {
