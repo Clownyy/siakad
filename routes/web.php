@@ -72,6 +72,15 @@ Route::group(['prefix' => '/'], function () {
         Route::put('visimisi/{id}/', 'VisimisiController@update');
         Route::get('visimisi/delete/{id}', 'VisimisiController@destroy');
     });
+    Route::group(['middleware' => 'superadmin'], function () {
+        //Start route Kategori
+        Route::get('kategori', 'KategoriController@index');
+        Route::get('kategori/create', 'KategoriController@create');
+        Route::post('kategori/store', 'KategoriController@store');
+        Route::get('kategori/edit/{id}', 'KategoriController@edit');
+        Route::put('kategori/{id}/', 'KategoriController@update');
+        Route::get('kategori/delete/{id}', 'KategoriController@destroy');
+    });
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

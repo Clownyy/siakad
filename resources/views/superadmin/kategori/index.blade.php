@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Visimisi
+Kategori
 @endsection
 @section('content')
 <div class="header bg-primary pb-6">
@@ -8,16 +8,16 @@ Visimisi
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Vission And Mission</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Category</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                             <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#">Vission And Mission</a></li>
+                            <li class="breadcrumb-item"><a href="#">Category</a></li>
                         </ol>
                     </nav>
                 </div>
                 <div class="col-lg-6 col-5 text-right">
-                    <a href="{{url('visimisi/create')}}" class="btn btn-sm btn-neutral">New</a>
+                    <a href="{{url('kategori/create')}}" class="btn btn-sm btn-neutral">New</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@ Visimisi
         <div class="col-md-12">
             <div class="card card-stats">
                 <div class="card-header">
-                    <h3 class="mb-0">Form Vission And Mission</h3>
+                    <h3 class="mb-0">Form Category</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive py-4">
@@ -36,20 +36,18 @@ Visimisi
                             <thead class="thead-light">
                                 <tr>
                                     <th>No</th>
-                                    <th>Content</th>
-                                    <th>Type</th>
+                                    <th>Name</th>
                                     <th colspan="2">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($visimisi as $v)
+                                @foreach($kategori as $k)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
-                                    <td>{{$v->isi}}</td>
-                                    <td>{{$v->tipe}}</td>
+                                    <td>{{$k->nama}}</td>
                                     <td>
-                                        <a href="{{url('visimisi/edit/'.$v->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt text-white"></i></a>
-                                        <a href="{{url('visimisi/delete/'.$v->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></a>
+                                        <a href="{{url('kategori/edit/'.$k->id)}}" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt text-white"></i></a>
+                                        <a href="{{url('kategori/delete/'.$k->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
