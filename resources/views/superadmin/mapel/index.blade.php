@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('title')
-Field Section
+Subjects
 @endsection
 @section('content')
 <div class="header bg-primary pb-6">
@@ -8,16 +8,16 @@ Field Section
         <div class="header-body">
             <div class="row align-items-center py-4">
                 <div class="col-lg-6 col-7">
-                    <h6 class="h2 text-white d-inline-block mb-0">Field Sections</h6>
+                    <h6 class="h2 text-white d-inline-block mb-0">Subjects</h6>
                     <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
                         <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
                           <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
-                          <li class="breadcrumb-item"><a href="#">Field Sections</a></li>
+                          <li class="breadcrumb-item"><a href="#">Subjects</a></li>
                       </ol>
                   </nav>
                 </div>
                 <div class="col-lg-6 col-5 text-right">
-                    <a href="#addSekbid" data-toggle="modal" data-target="#addSekbid" class="btn btn-sm btn-neutral">New</a>
+                    <a href="#addSubjects" data-toggle="modal" data-target="#addSubjects" class="btn btn-sm btn-neutral">New</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@ Field Section
         <div class="col-md-12">
             <div class="card card-stats">
                 <div class="card-header">
-                    <h3 class="mb-0">All Field</h3>
+                    <h3 class="mb-0">All Subjects</h3>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive py-4">
@@ -41,13 +41,13 @@ Field Section
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($sekbids as $b)
+                                @foreach($subjects as $b)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$b->nama}}</td>
                                     <td>
                                         <a href="#editSekbid{{$b->id}}" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editSekbid{{$b->id}}"><i class="fas fa-pencil-alt text-white"></i></a>
-                                        <a href="{{url('sekbid/delete/'.$b->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></a>
+                                        <a href="{{url('mapel/delete/'.$b->id)}}" class="btn btn-danger btn-sm"><i class="fas fa-trash text-white"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach
@@ -59,16 +59,16 @@ Field Section
         </div>
     </div>
 </div>
-<div class="modal fade" id="addSekbid" role="dialog" aria-labelledby="modalContent" aria-hidden="true">
+<div class="modal fade" id="addSubjects" role="dialog" aria-labelledby="modalContent" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalContent">New Sekbid</h5>
+                <h5 class="modal-title" id="modalContent">New Subjects</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{url('sekbid/store')}}" method="post">
+            <form action="{{url('mapel/store')}}" method="post">
                 @csrf
                 <div class="modal-body">
                     <div class="form-group">
@@ -84,17 +84,17 @@ Field Section
     </div>
 </div>
 {{-- modal --}}
-@foreach($sekbids as $b)
+@foreach($subjects as $b)
 <div class="modal fade" id="editSekbid{{$b->id}}" role="dialog" aria-labelledby="modalContent" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modalContent">Edit Sekbid</h5>
+                <h5 class="modal-title" id="modalContent">Edit Subjects</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{url('sekbid/'.$b->id)}}" method="post">
+            <form action="{{url('mapel/'.$b->id)}}" method="post">
                 @csrf @method('put')
                 <div class="modal-body">
                     <div class="form-group">

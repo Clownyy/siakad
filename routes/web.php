@@ -84,6 +84,13 @@ Route::group(['prefix' => '/'], function () {
         Route::get('sekbid/edit/{id}', 'SekbidController@edit');
         Route::put('sekbid/{id}/', 'SekbidController@update');
         Route::get('sekbid/delete/{id}', 'SekbidController@destroy');
+        //Start route Mapel
+        Route::get('mapel', 'MapelController@index');
+        Route::get('mapel/create', 'MapelController@create');
+        Route::post('mapel/store', 'MapelController@store');
+        Route::get('mapel/edit/{id}', 'MapelController@edit');
+        Route::put('mapel/{id}/', 'MapelController@update');
+        Route::get('mapel/delete/{id}', 'MapelController@destroy');
     });
 });
 

@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Siswa;
+use App\Guru;
+use App\Gudang;
+use App\Karyawan;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        $data['siswas'] = Siswa::All();
+        $data['gurus'] = Guru::All();
+        $data['gudangs'] = Gudang::All();
+        $data['karyawans'] = Karyawan::All();
+        return view('admin.dashboard')->with($data);
     }
 }

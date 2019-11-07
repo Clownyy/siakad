@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Mapel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
+use Hash;
+use Validator;
 
 class MapelController extends Controller
 {
@@ -14,7 +18,8 @@ class MapelController extends Controller
      */
     public function index()
     {
-        //
+        $subjects = Mapel::orderBy('created_at', 'DESC')->get();
+        return view('superadmin.mapel.index', compact('subjects'));
     }
 
     /**
@@ -24,7 +29,7 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //
+        // return view('superadmin.mapel.create');
     }
 
     /**
@@ -35,16 +40,29 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make(request()->all(),[
+            'nama' => 'required|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $mapel = new Mapel;
+        $mapel->nama = $request->input('nama');
+        $mapel->save();
+        return redirect(url('mapel'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Mapel  $mapel
+     * @param  \App\mapel  $blog
      * @return \Illuminate\Http\Response
      */
-    public function show(Mapel $mapel)
+    public function show(Blog $blog)
     {
         //
     }
@@ -52,34 +70,50 @@ class MapelController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Mapel  $mapel
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function edit(Mapel $mapel)
+    public function edit($id)
     {
-        //
+        // $sekbids = Mapel::find($id);
+        // return view('superadmin.blog.edit',['sekbids' => $sekbids]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Mapel  $mapel
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Mapel $mapel)
+    public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(),[
+            'nama' => 'required|max:50',
+        ]);
+
+        if ($validator->fails()) {
+            redirect()
+                ->back()
+                ->withErrors($validator->errors());
+        }
+
+        $mapel = Mapel::findorFail($id);
+        $mapel->nama = $request->input('nama');
+        $mapel->save();
+        return redirect(url('mapel'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Mapel  $mapel
+     * @param  \App\Blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Mapel $mapel)
+    public function destroy($id)
     {
-        //
+        $mapel = Mapel::findOrFail($id);
+        $mapel->delete();
+        return redirect(url('mapel'));
     }
 }

@@ -105,7 +105,7 @@
                                         <a href="{{url('karyawan')}}" class="nav-link">Employees</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Subjects</a>
+                                        <a href="{{url('mapel')}}" class="nav-link">Subjects</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">Departments</a>
@@ -129,7 +129,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="{{url('sekbid')}}">
                                 <i class="ni ni-tag"></i>
                                 <span class="nav-link-text">Field Section</span>
                             </a>
@@ -154,7 +154,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{url('about')}}">
-                                <i class="ni ni-archive-2"></i>
+                                <i class="fas fa-info"></i>
                                 <span class="nav-link-text">About</span>
                             </a>
                         </li>
@@ -167,7 +167,7 @@
                     <ul class="navbar-nav mb-md-3">
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="ni ni-shop"></i>
+                                <i class="fas fa-boxes"></i>
                                 <span class="nav-link-text">Inventory Data</span>
                             </a>
                         </li>
