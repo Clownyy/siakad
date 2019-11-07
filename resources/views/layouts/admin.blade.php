@@ -96,7 +96,7 @@
                             <div class="collapse" id="master-data">
                                 <ul class="nav nav-sm flex-column">
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link">Teachers</a>
+                                        <a href="{{url('guru')}}" class="nav-link">Teachers</a>
                                     </li>
                                     <li class="nav-item">
                                         <a href="{{url('siswa')}}" class="nav-link">Students</a>

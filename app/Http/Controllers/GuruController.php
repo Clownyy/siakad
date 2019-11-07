@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Guru;
+use App\Mapel;
 use Illuminate\Http\Request;
 
 class GuruController extends Controller
@@ -14,7 +15,9 @@ class GuruController extends Controller
      */
     public function index()
     {
-        //
+        $gurus = Guru::with('mapels')->orderBy('created_at', 'DESC')->get();
+        $mapels = Mapel::orderBy('nama', 'ASC')->get();
+        return view('superadmin.guru.index', compact('gurus', 'mapels'));
     }
 
     /**
@@ -55,9 +58,11 @@ class GuruController extends Controller
      * @param  \App\Guru  $guru
      * @return \Illuminate\Http\Response
      */
-    public function edit(Guru $guru)
+    public function edit($id)
     {
-        //
+        $mapel = Mapel::orderBy('nama', 'ASC')->get();
+        $gurus = Guru::findOrFail($id);
+        return view('superadmin.guru.edit', compact('gurus','mapel'));
     }
 
     /**

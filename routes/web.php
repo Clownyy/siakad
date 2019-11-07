@@ -91,6 +91,13 @@ Route::group(['prefix' => '/'], function () {
         Route::get('mapel/edit/{id}', 'MapelController@edit');
         Route::put('mapel/{id}/', 'MapelController@update');
         Route::get('mapel/delete/{id}', 'MapelController@destroy');
+        //Start route Guru
+        Route::get('guru', 'GuruController@index');
+        Route::get('guru/create', 'GuruController@create');
+        Route::post('guru/store', 'GuruController@store');
+        Route::get('guru/edit/{id}', 'GuruController@edit');
+        Route::put('guru/{id}/', 'GuruController@update');
+        Route::get('guru/delete/{id}', 'GuruController@destroy');
     });
 });
 

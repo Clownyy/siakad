@@ -20,7 +20,6 @@ class CreateGurusTable extends Migration
             $table->string('jenis_kelamin');
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
-            $table->string('jabatan');
             $table->string('foto');
             $table->integer('mapel_id');
             $table->timestamps();
