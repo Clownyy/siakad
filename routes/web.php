@@ -35,53 +35,6 @@ Route::group(['prefix' => '/'], function () {
         Route::get('siswa/edit/{id}', 'SiswaController@edit');
         Route::post('siswa/update', 'SiswaController@update');
         Route::get('siswa/delete/{id}', 'SiswaController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
-        //Start route Blog
-        Route::get('blog', 'BlogController@index');
-        Route::get('blog/create', 'BlogController@create');
-        Route::post('blog/store', 'BlogController@store');
-        Route::get('blog/edit/{id}', 'BlogController@edit');
-        Route::put('blog/{id}', 'BlogController@update');
-        Route::get('blog/delete/{id}', 'BlogController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
-        //Start route karyawan
-        Route::get('karyawan', 'KaryawanController@index');
-        Route::get('karyawan/create', 'KaryawanController@create');
-        Route::post('karyawan/store', 'KaryawanController@store');
-        Route::get('karyawan/edit/{id}', 'KaryawanController@edit');
-        Route::put('karyawan/{id}/', 'KaryawanController@update');
-        Route::get('karyawan/delete/{id}', 'KaryawanController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
-        //Start route About
-        Route::get('about', 'AboutController@index');
-        Route::get('about/create', 'AboutController@create');
-        Route::post('about/store', 'AboutController@store');
-        Route::get('about/edit/{id}', 'AboutController@edit');
-        Route::put('about/{id}/', 'AboutController@update');
-        Route::get('about/delete/{id}', 'AboutController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
-        //Start route About
-        Route::get('visimisi', 'VisimisiController@index');
-        Route::get('visimisi/create', 'VisimisiController@create');
-        Route::post('visimisi/store', 'VisimisiController@store');
-        Route::get('visimisi/edit/{id}', 'VisimisiController@edit');
-        Route::put('visimisi/{id}/', 'VisimisiController@update');
-        Route::get('visimisi/delete/{id}', 'VisimisiController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
-        //Start route Kategori
-        Route::get('kategori', 'KategoriController@index');
-        Route::get('kategori/create', 'KategoriController@create');
-        Route::post('kategori/store', 'KategoriController@store');
-        Route::get('kategori/edit/{id}', 'KategoriController@edit');
-        Route::put('kategori/{id}/', 'KategoriController@update');
-        Route::get('kategori/delete/{id}', 'KategoriController@destroy');
-    });
-    Route::group(['middleware' => 'superadmin'], function () {
         //Start route Gudang
         Route::get('gudang', 'GudangController@index');
         Route::get('gudang/create', 'GudangController@create');
@@ -89,6 +42,48 @@ Route::group(['prefix' => '/'], function () {
         Route::get('gudang/edit/{id}', 'GudangController@edit');
         Route::put('gudang/{id}/', 'GudangController@update');
         Route::get('gudang/delete/{id}', 'GudangController@destroy');
+        //Start route Blog
+        Route::get('blog', 'BlogController@index');
+        Route::get('blog/create', 'BlogController@create');
+        Route::post('blog/store', 'BlogController@store');
+        Route::get('blog/edit/{id}', 'BlogController@edit');
+        Route::put('blog/{id}', 'BlogController@update');
+        Route::get('blog/delete/{id}', 'BlogController@destroy');
+        //Start route karyawan
+        Route::get('karyawan', 'KaryawanController@index');
+        Route::get('karyawan/create', 'KaryawanController@create');
+        Route::post('karyawan/store', 'KaryawanController@store');
+        Route::get('karyawan/edit/{id}', 'KaryawanController@edit');
+        Route::put('karyawan/{id}/', 'KaryawanController@update');
+        Route::get('karyawan/delete/{id}', 'KaryawanController@destroy');
+        //Start route About
+        Route::get('about', 'AboutController@index');
+        Route::get('about/create', 'AboutController@create');
+        Route::post('about/store', 'AboutController@store');
+        Route::get('about/edit/{id}', 'AboutController@edit');
+        Route::put('about/{id}/', 'AboutController@update');
+        Route::get('about/delete/{id}', 'AboutController@destroy');
+        //Start route About
+        Route::get('visimisi', 'VisimisiController@index');
+        Route::get('visimisi/create', 'VisimisiController@create');
+        Route::post('visimisi/store', 'VisimisiController@store');
+        Route::get('visimisi/edit/{id}', 'VisimisiController@edit');
+        Route::put('visimisi/{id}/', 'VisimisiController@update');
+        Route::get('visimisi/delete/{id}', 'VisimisiController@destroy');
+        //Start route Kategori
+        Route::get('kategori', 'KategoriController@index');
+        Route::get('kategori/create', 'KategoriController@create');
+        Route::post('kategori/store', 'KategoriController@store');
+        Route::get('kategori/edit/{id}', 'KategoriController@edit');
+        Route::put('kategori/{id}/', 'KategoriController@update');
+        Route::get('kategori/delete/{id}', 'KategoriController@destroy');
+        //Start route Sekbid
+        Route::get('sekbid', 'SekbidController@index');
+        Route::get('sekbid/create', 'SekbidController@create');
+        Route::post('sekbid/store', 'SekbidController@store');
+        Route::get('sekbid/edit/{id}', 'SekbidController@edit');
+        Route::put('sekbid/{id}/', 'SekbidController@update');
+        Route::get('sekbid/delete/{id}', 'SekbidController@destroy');
     });
 });
 
